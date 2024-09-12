@@ -1,0 +1,33 @@
+.formContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fdd976;
+}
+
+.inputField {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.submitButton {
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submitButton:hover {
+    background-color: #005bb5;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 20px; /* Ajusta la separación entre los botones */
+    margin-top: 20px;
+}
