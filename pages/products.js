@@ -209,7 +209,7 @@ export default function ProductList() {
                         {/* Tabla en formato grid */}
                         <div className={styles.table}>
                             <div className={styles.tableHeader}>Ref.</div>
-                            <div className={styles.tableHeader}>Producto</div>
+                            <div className={styles.tableHeader}>Producto y Marca</div>
                             <div className={styles.tableHeader}>Cantidad</div>
                             <div className={styles.tableHeader}>Precio</div>
                             <div className={styles.tableHeader}>Barrio</div>

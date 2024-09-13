@@ -50,7 +50,7 @@ export default function ProductUploadForm() {
         <form onSubmit={handleSubmit} className={styles.formContainer}>
             <input
                 type="text"
-                placeholder="Producto"
+                placeholder="Producto y marca"
                 value={producto}
                 onChange={(e) => setProducto(e.target.value)}
                 className={styles.inputField}
