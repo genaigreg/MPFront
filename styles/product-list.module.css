@@ -1,83 +1,83 @@
-.productListContainer {
-    width: 100%;
-    max-width: 360px;
-    max-height: 550px; /* Ajusta la altura máxima según sea necesario */
-    overflow-y: auto; /* Permite el desplazamiento vertical */
-    border: 1px solid #ddd; /* Opcional: Agrega un borde para destacar el contenedor */
-    border-radius: 5px; /* Opcional: Redondea las esquinas del contenedor */
-    background: #fdd976; /* Opcional: Fondo blanco para los items */
-    font-family: 'Poppins', sans-serif;/* /la fuente a los items */
-    padding: 20px;
 
+.productListContainer {
+    max-width: 100%;
+    margin: auto;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    position: relative; /* Asegura que los elementos con position: sticky se comporten correctamente */
+    background-color: #ea6202; /* Color naranja oscuro */
+    padding: 10px; /* Añade espacio alrededor de la tabla */
+    border-radius: 5px;
 }
 
 .searchInput {
-    width: 80%;
-    padding: 3px;
-    margin-bottom: 15px;
-    font-size: 12px;
-    
+    margin: 10px;
+    padding: 5px;
+    width: 200px;
 }
 
-.productList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.table {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* Ajusta las columnas de la tabla */
+    gap: 5px;
+    margin-top: 10px;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
 }
 
-.productItem {
+.tableHeader {
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.tableCell {
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Línea separadora entre filas */
+    position: relative;
+}
+
+
+.pagination {
     display: flex;
-    align-items: center;
-    margin-bottom: 5px; /* Reduce el margen inferior */
-    border: 1px solid #ddd;
-    padding:  10px; /* Reduce el padding en general */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #ccc;
+    cursor: pointer;
     border-radius: 5px;
-    background: #ffffff; /* Opcional: Fondo blanco para los items */
-    max-width: 300px; /* Ajusta el ancho máximo según sea necesario */
-    width: 100%; /* Asegura que ocupe todo el ancho disponible hasta el max-width */
-    box-sizing: border-box; /* Asegura que padding y border se incluyan en el ancho total */
-    /* font-family: 'Poppins', sans-serif;  */
-}
-.productInfo {
-    flex: 1;
-    padding-right: 20px;
 }
 
-.productItem p {
-    font-size: 14px; /* Ajusta el tamaño de la fuente */
-    margin: 0; /* Elimina el margen para los párrafos */
-    line-height: 1.1; /* Reduce la altura de línea para que el texto ocupe menos espacio vertical */
+.pagination button.activePage {
+    background-color: #0070f3;
+    color: white;
 }
-
-.productIcon {
-    width: 65px; /* Ajusta el tamaño según sea necesario */
-    height: 65px; /* Ajusta el tamaño según sea necesario */
-}
-
 
 .addButtonContainer {
-    
-    text-align: right;
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
-    max-width: 360px;
-     /* Opcional: Fondo blanco para los items */
-
- 
+   
 }
 
+
 .addButton {
-    color: #000408;
-    background: none;
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: white;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fdd976; /* Color de fondo amarillo */
-    
+    overflow-x: auto;
 }
 
 .addButton:hover {
-    background-color: #f0f0f0;
+    background-color: #005bb5;
 }
+

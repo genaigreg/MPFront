@@ -79,14 +79,14 @@ export default function ProductUploadForm() {
             />
             <input
                 type="text"
-                placeholder="Localidad"
+                placeholder="Barrio"
                 value={localidad}
                 onChange={(e) => setLocalidad(e.target.value)}
                 className={styles.inputField}
             />
             <input
                 type="text"
-                placeholder="Provincia"
+                placeholder="Ciudad"
                 value={provincia}
                 onChange={(e) => setProvincia(e.target.value)}
                 className={styles.inputField}

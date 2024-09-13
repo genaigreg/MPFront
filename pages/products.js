@@ -5,7 +5,6 @@ import Link from 'next/link';
 // URL base para los iconos
 const ICON_BASE_URL = 'https://img.icons8.com/ios/50/000000/';
 
-// Función para obtener el nombre del icono basado en el producto
 const iconMap = {
     'leche': 'milk',
     'tomate': 'tomato',
@@ -139,71 +138,142 @@ export default function ProductList() {
     const [displayedProducts, setDisplayedProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [localidadTerm, setLocalidadTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true); // Estado de carga
+    const productsPerPage = 5;
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/todos/products/');
-            const data = await res.json();
-            setProducts(data);
-            setDisplayedProducts(data.slice(0, 5)); // Muestra solo los primeros 5 productos
+            setLoading(true); // Empieza a cargar
+            try {
+                const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/todos/products/');
+                const data = await res.json();
+                setProducts(data);
+                setDisplayedProducts(data.slice(0, productsPerPage));
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            } finally {
+                setLoading(false); // Termina de cargar
+            }
         };
         fetchProducts();
     }, []);
 
     useEffect(() => {
-        // Aplica el filtro a los productos completos
         const filteredProducts = products.filter((product) =>
             product.producto.toLowerCase().includes(searchTerm.toLowerCase()) &&
             product.localidad.toLowerCase().includes(localidadTerm.toLowerCase())
         );
-        setDisplayedProducts(filteredProducts.slice(0, 5)); // Muestra solo los primeros 5 productos del filtro
-    }, [searchTerm, localidadTerm, products]);
+        const start = (currentPage - 1) * productsPerPage;
+        const end = start + productsPerPage;
+        setDisplayedProducts(filteredProducts.slice(start, end));
+    }, [searchTerm, localidadTerm, products, currentPage]);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const totalPages = Math.ceil(products.length / productsPerPage);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+    }
+
+    // Crear el rango de páginas a mostrar
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+    const showEllipsisBefore = startPage > 1;
+    const showEllipsisAfter = endPage < totalPages;
 
     return (
         <>
-            <div className={styles.productListContainer}>
-                <input 
-                    type="text" 
-                    placeholder="Buscar producto..." 
-                    value={searchTerm} 
-                    onChange={(e) => setSearchTerm(e.target.value)} 
-                    className={styles.searchInput}
-                />
-                <input 
-                    type="text" 
-                    placeholder="Buscar por localidad..." 
-                    value={localidadTerm}
-                    onChange={(e) => setLocalidadTerm(e.target.value)} 
-                    className={styles.searchInput}
-                />
-                <ul className={styles.productList}>
-                    {displayedProducts.map((product) => (
-                        <li key={product.id} className={styles.productItem}>
-                            <div className={styles.productInfo}>
-                                <h3>{product.producto}</h3>
-                                <p><strong>Cantidad:</strong> {product.cantidad} {product.unidad}</p>
-                                <p><strong>Precio:</strong> ${product.precio}</p>
-                                <p><strong>Localidad:</strong> {product.localidad}</p>
-                                <p><strong>Provincia:</strong> {product.provincia}</p>
-                                <p><strong>Tipo de comercio:</strong> {product.tipo_comercio}</p>
-                                <p><strong>Nombre del comercio:</strong> {product.nombre_comercio}</p>
-                            </div>
-                            <img
-                                src={getIconUrl(product.producto)} 
-                                alt={product.producto}
-                                className={styles.productIcon}
-                            />
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className={styles.addButtonContainer}>
-                <Link href="/upload" passHref>
-                    <button className={styles.addButton}>
-                         Nuevo Producto
-                    </button>
-                </Link>
-            </div>
+            {loading ? (
+                <div className={styles.loading}>Cargando datos...</div>
+            ) : (
+                <>
+                    <div className={styles.productListContainer}>
+                        <input 
+                            type="text" 
+                            placeholder="Buscar producto..." 
+                            value={searchTerm} 
+                            onChange={(e) => setSearchTerm(e.target.value)} 
+                            className={styles.searchInput}
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Buscar barrio..." 
+                            value={localidadTerm}
+                            onChange={(e) => setLocalidadTerm(e.target.value)} 
+                            className={styles.searchInput}
+                        />
+                        
+                        {/* Tabla en formato grid */}
+                        <div className={styles.table}>
+                            <div className={styles.tableHeader}>Ref.</div>
+                            <div className={styles.tableHeader}>Producto</div>
+                            <div className={styles.tableHeader}>Cantidad</div>
+                            <div className={styles.tableHeader}>Precio</div>
+                            <div className={styles.tableHeader}>Barrio</div>
+                            <div className={styles.tableHeader}>Ciudad</div>
+                            <div className={styles.tableHeader}>Tipo Comercio</div>
+                            <div className={styles.tableHeader}>Nombre Comercio</div>
+                            
+
+                            {displayedProducts.map((product) => (
+                                <>
+                                    <div className={styles.tableCell}>
+                                        <img src={getIconUrl(product.producto)} alt={product.producto} className={styles.productIcon} />
+                                    </div>
+                                    <div className={styles.tableCell}>{product.producto}</div>
+                                    <div className={styles.tableCell}>{product.cantidad} {product.unidad}</div>
+                                    <div className={styles.tableCell}><strong>${product.precio}</strong></div>
+                                    <div className={styles.tableCell}>{product.localidad}</div>
+                                    <div className={styles.tableCell}>{product.provincia}</div>
+                                    <div className={styles.tableCell}>{product.tipo_comercio}</div>
+                                    <div className={styles.tableCell}>{product.nombre_comercio}</div>
+                                    
+                                </>
+                            ))}
+                        </div>
+                    </div>
+                   
+
+                    {/* Paginación */}
+                    <div className={styles.pagination}>
+                        {showEllipsisBefore && (
+                            <>
+                                <button onClick={() => paginate(1)} className={styles.paginationButton}>1</button>
+                                <span className={styles.ellipsis}>...</span>
+                            </>
+                        )}
+                        {pageNumbers.slice(startPage - 1, endPage).map((number) => (
+                            <button
+                                key={number}
+                                onClick={() => paginate(number)}
+                                className={currentPage === number ? styles.activePage : styles.paginationButton}
+                            >
+                                {number}
+                            </button>
+                        ))}
+                        {showEllipsisAfter && (
+                            <>
+                                <span className={styles.ellipsis}>...</span>
+                                <button onClick={() => paginate(totalPages)} className={styles.paginationButton}>{totalPages}</button>
+                            </>
+                        )}
+                    </div>
+
+                    <div className={styles.addButtonContainer}>
+  
+    <Link href="/upload" passHref>
+        <button className={styles.addButton}>
+            Nuevo Producto
+        </button>
+    </Link>
+
+</div>
+
+                </>
+            )}
         </>
     );
 }
