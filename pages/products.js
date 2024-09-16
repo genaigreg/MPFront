@@ -8,7 +8,7 @@ const ICON_BASE_URL = 'https://img.icons8.com/ios/50/000000/';
 const iconMap = {
    'yerba': 'mate',
     'atun': 'fish',
-    'leche': 'milk',
+    'leche': 'milk-bottle',
     'tomate': 'tomato',
     'pan': 'bread',
     'carne': 'meat',
@@ -19,15 +19,13 @@ const iconMap = {
     'plátano': 'banana',
     'pollo': 'chicken',
     'arroz': 'grains-of-rice',
-    'pasta': 'pasta',
     'aceite': 'olive-oil',
     'azúcar': 'sugar',
     'sal': 'salt',
     'harina': 'flour',
     'huevo': 'egg',
-    'café': 'coffee',
+    'cafe': 'coffee',
     'té': 'tea',
-    'mantequilla': 'butter',
     'yogur': 'yogurt',
     'jugo': 'juice',
     'papas': 'potato',
@@ -110,6 +108,7 @@ const iconMap = {
     'uvas': 'grapes',
     'kiwi': 'kiwi',
     'mango': 'mango',
+    'mani':'peanuts',
     'piña': 'pineapple',
     'sandía': 'watermelon',
     'melón': 'melon',
@@ -122,12 +121,7 @@ const iconMap = {
     'cigarrillos':'joint',
     'manteca': 'lard',
     'aceite de oliva': 'olive-oil',
-    'aceite vegetal': 'olive-oil',
-    'leche condensada': 'condensed_milk',
-    'leche evaporada': 'evaporated_milk',
-    'leche de almendra': 'almond_milk',
-    'leche de soja': 'soy_milk',
-    'leche de coco': 'coconut_milk'
+    'aceite vegetal': 'olive-oil'
 };
 
 const getIconUrl = (productName) => {
