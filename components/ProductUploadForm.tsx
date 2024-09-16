@@ -67,8 +67,10 @@ export default function ProductUploadForm() {
                 onChange={(e) => setUnidad(e.target.value)}
                 className={styles.inputField}
             >
+                <option value="gr">gr</option>
                 <option value="kg">kg</option>
                 <option value="litro">litros</option>
+                <option value="unidad">unidad</option>
             </select>
             <input
                 type="number"
