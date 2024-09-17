@@ -81,3 +81,10 @@
     background-color: #005bb5;
 }
 
+.tableContainer {
+  max-height: 400px; /* Adjust this as needed */
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc; /* Optional styling */
+}
+
